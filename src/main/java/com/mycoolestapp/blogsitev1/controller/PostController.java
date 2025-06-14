@@ -4,9 +4,8 @@ package com.mycoolestapp.blogsitev1.controller;
 import com.mycoolestapp.blogsitev1.entity.PostBlog;
 import com.mycoolestapp.blogsitev1.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,16 +15,27 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping
+    @GetMapping("/getAllPosts")
     public List<PostBlog> getAllPosts(){
     return postService.getAllPosts();
     }
-    public PostBlog getPostById(Long postId) {
+    @GetMapping("/getPostby/{id}")
+    public PostBlog getPostById(@PathVariable Long postId) {
         return postService.getPostById(postId);
     }
-
-    public PostBlog createPost(PostBlog post) {
+    @PostMapping("/createPost")
+    public PostBlog createPost(@RequestBody PostBlog post) {
         return postService.createPost(post);
+    }
+    @PutMapping("/updatePost/{id}")
+    public ResponseEntity<PostBlog> updatePost (@PathVariable Long id , @RequestBody PostBlog post) {
+        try {
+            PostBlog updatePost = postService.updatePost(id, post);
+            return ResponseEntity.ok(updatePost);
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
