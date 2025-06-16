@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/static/css/styles.css}" rel="stylesheet">
     <title th:text="${post.id} == null ? 'New Post' : 'Edit Post'">Post Form</title>    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
