@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">Post</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="container">
+    <header class="header">
+        <h1 class="logo"><a th:href="@{/blog/home}" style="text-decoration:none;color:inherit;">Blog<span class="accent">Site</span></a></h1>
+        <a class="btn-primary" th:href="@{/blog/posts/edit/{id}(id=${post.id})}">Edit</a>
+    </header>
+    <main style="max-width:700px;margin:0 auto;">
+        <article class="post-card" style="padding:2rem;">
+            <h2 class="post-title" th:text="${post.title}" style="font-size:2rem;"></h2>
+            <div style="margin:1.5rem 0; color:#444; font-size:1.1rem;" th:text="${post.content}"></div>
+            <div class="post-actions" style="margin-top:2rem;">
+                <a class="btn-link" th:href="@{/blog/home}">Back to Home</a>
+                <form th:action="@{'/blog/posts/delete/' + ${post.id}}" method="post" style="display:inline;">
+                    <button class="btn-link danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

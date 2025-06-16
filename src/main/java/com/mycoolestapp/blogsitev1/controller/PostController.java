@@ -20,8 +20,8 @@ public class PostController {
     return postService.getAllPosts();
     }
     @GetMapping("/getPostby/{id}")
-    public PostBlog getPostById(@PathVariable Long postId) {
-        return postService.getPostById(postId);
+    public PostBlog getPostById(@PathVariable("id") Long id) {
+        return postService.getPostById(id);
     }
     @PostMapping("/createPost")
     public PostBlog createPost(@RequestBody PostBlog post) {
@@ -36,6 +36,11 @@ public class PostController {
         catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+    @DeleteMapping("/deletePost/{id}")
+    public ResponseEntity<PostBlog> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

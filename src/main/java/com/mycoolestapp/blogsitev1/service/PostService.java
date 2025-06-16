@@ -32,5 +32,20 @@ public class PostService {
 
         return postRepository.save(existingPost);
     }
+    public PostBlog deletePost(Long id) {
+        PostBlog deletePost = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
+        postRepository.delete(deletePost);
+        return deletePost;
+    }
+    public List<PostBlog> searchPosts(String title) {
+        return postRepository.findByTitleContainingIgnoreCase(title);
+
+    }
+    public List<PostBlog> getPostsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        if(startDate.isAfter(endDate)){
+            throw new IllegalArgumentException("Start date cannot be after end date");
+        }
+        return postRepository.findByCreatedAtBetween(startDate, endDate);
+    }
 
 }

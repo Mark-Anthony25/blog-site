@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.id} == null ? 'New Post' : 'Edit Post'">Post Form</title>    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="container">
+    <header class="header">
+        <h1 class="logo"><a th:href="@{/blog/home}" style="text-decoration:none;color:inherit;">Blog<span class="accent">Site</span></a></h1>
+    </header>
+    <main style="max-width:700px;margin:0 auto;">
+        <section class="post-card" style="padding:2rem;">
+            <h2 class="post-title" th:text="${post.id} == null ? 'Create New Post' : 'Edit Post'" style="font-size:1.5rem;"></h2>
+            <form th:action="@{/blog/posts/save}" th:object="${post}" method="post" style="margin-top:1.5rem;">
+                <input type="hidden" th:field="*{id}" />
+                <div style="margin-bottom:1.2rem;">
+                    <label for="title">Title</label>
+                    <input id="title" type="text" th:field="*{title}" required />
+                </div>
+                <div style="margin-bottom:1.2rem;">
+                    <label for="content">Content</label>
+                    <textarea id="content" th:field="*{content}" rows="7" required></textarea>
+                </div>
+                <div style="display:flex;gap:1rem;align-items:center;">
+                    <button class="btn-primary" type="submit">Save</button>
+                    <a class="btn-link" th:href="@{/blog/home}">Cancel</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
